@@ -1,0 +1,539 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    padding: 0;
+    margin: 0;
+}
+
+.container{
+    width: 100%;
+    height: 100vh;
+}
+.dflex{
+    display: flex;
+}
+
+.dflex.jcc{
+    justify-content: center;
+}
+
+.dflex.jcsb{
+    justify-content: space-between;
+}
+
+.dflex.aic{
+    align-items: center;
+}
+
+.dflex.fdc{
+    flex-direction: column;
+}
+
+.flex1{
+    flex: 1;
+}
+
+.flex2{
+    flex: 2;
+}
+
+
+/* ------------------------ */
+.card{
+    height: 50vh;
+    width: 40%;
+    background-color: #27566B;
+    padding: 10px;
+    color: #E5E8E9;
+    font-family: 'Courier New', Courier, monospace;
+    position: relative;
+}
+
+img{
+    width: 100%;
+    height: 100%;
+}
+.photo{
+    border-left: 2px solid #E5E8E9;
+    padding-left: 10px;
+}
+
+.infos{
+    height: 40%;
+}
+
+.info{
+    padding-right: 10px;
+}
+
+.row .label{
+    font-size: 2rem;
+    font-weight: 900;
+}
+
+.row .data{
+    font-size: 1.5rem;
+}
+
+.title{
+    font-size: 1.5rem;
+}
+
+.btn-detail{
+    font-weight: 900;
+    font-size: 1.8rem;
+    cursor: pointer;
+}
+
+.form{
+    position: absolute;
+    padding: 10px;
+    top: 0;
+    left: 100%;
+    background-color: #27566B;
+    display: none;
+    /* background-color: #06293D;27566B */
+}
+
+.form-group{
+    margin-bottom: 10px;
+}
+
+.from-control{
+    width: 200px;
+    padding: 10px;
+    text-align: center;
+}
+
+.form-group label{
+    font-size: 1.20rem;
+}
+
+input.from-control{
+    font-size: 1.5rem;
+    border-radius: 5px;
+    border: #799eb0;
+    outline: none;
+}
+
+select{
+    outline: none;
+    border-radius: 5px;
+}
+
+.form button{
+    width: 100%;
+    background-color: #06293D;
+    color: #E5E8E9;
+    outline: none;
+    border: 1px solid #799eb0;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.next{
+    padding: 5px 20px;
+    font-size: 1.09rem;
+    margin-top: 10px;
+    background-color: #27566B;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+    color: #E5E8E9;
+}
+
+button{
+    cursor: pointer;
+}
+
+table{
+    width: 100%;
+    background-color: #799eb0;
+}
+tr,td{
+    text-align: center;
+    line-height: 30px;
+    border: 0.1em solid;
+}
+
+.form.hide{
+    display: none;
+}
+
+/* --------------------------------------- */
+.transactions
+{
+    max-height: 50%;
+    overflow-y: scroll;
+}
+
+.dplnone
+{
+    display: none;
+}
+
+.icone
+{
+    width: 40%;
+    height: 10%;
+    background-color: #27566B;
+    gap: 3em;
+    border-bottom: 1em solid #799eb0;
+    
+    
+
+}
+
+.icone i
+{
+    
+    font-size: 1.8rem;
+   
+}
+
+.fa-user-plus
+{
+    color: green;
+    position: relative;
+}
+
+.fa-user-plus::after
+{
+    content: "Ajouter un nouveau client";
+    position: absolute;
+    font-size: 1rem;
+    top: -90%;
+    left: 0;
+    width: 1000%;
+    background-color: green;
+    text-align: center;
+    padding: 0.2rem;
+    border-radius: 1em;
+    opacity: 0;
+    color: white;
+}
+.fa-user-plus:hover.fa-user-plus::after
+{
+    opacity: 1;
+}
+
+.fa-trash
+{
+    color: red;
+    position: relative
+}
+
+.fa-trash::after
+{
+    content: "Supprimer le client";
+    position: absolute;
+    font-size: 1rem;
+    top: -90%;
+    left: 0;
+    width: 1100%;
+    background-color: red;
+    text-align: center;
+    padding: 0.2rem;
+    border-radius: 1em;
+    opacity: 0;
+    color: white;
+}
+.fa-trash:hover.fa-trash::after
+{
+    opacity: 1;
+}
+.fa-file
+{
+    color:white;
+    position: relative;
+}
+
+
+.fa-file::after
+{
+    content: "Modifier les informations du client";
+    position: absolute;
+    font-size: 1rem;
+    top: -90%;
+    left: 0;
+    width: 1300%;
+    background-color: white;
+    text-align: center;
+    padding: 0.2rem;
+    border-radius: 1em;
+    opacity: 0;
+    color: black;
+}
+.fa-file:hover.fa-file::after
+{
+    opacity: 1;
+}
+.divError
+{
+    position: absolute;
+    padding: 1% 4%;
+    background-color: red;
+    border-radius: 1em;
+    top: 0;
+    left: 40%;
+    color: white;
+    font-weight: bold;
+    /* display: none; */
+    transform: scale(0);
+
+}
+
+#detailTransac
+{
+    background-color: #799eb0;
+    height: 45%;
+    width: 25%;
+    overflow-y: scroll;
+    position: absolute;
+    top:13%;
+    left: 0%;
+    color: white;
+}
+
+#detailTransac thead th
+{
+    border: 0.1em solid;
+}
+.fa-circle-info
+{
+    position: absolute;
+}
+
+.fa-eye
+{
+    position: absolute;
+    top: 85%;
+    left: 70%;
+    color: black;
+}
+
+.fa-eye::after
+{
+    content: "infos du client ";
+    position: absolute;
+    font-size: 0.7rem;
+    padding: 0.2rem;
+    color: white;
+    top: -150%;
+    left: 0;
+    background-color: black;
+    width: 600%;
+    text-align: center;
+    height: 100%;
+    opacity: 0;
+}
+.fa-eye:hover.fa-eye::after
+{
+    opacity: 1;
+}
+#detail-transac
+{
+    height: 4em;
+    width: 5em;
+    position: absolute;
+    top: 71%;
+    left: 65%;
+    
+}
+#TypeTransac
+{
+    position: absolute;
+    left: 70%;
+    top: 0%;
+    
+
+}
+
+.popup 
+{
+    position: absolute;
+    background-color: red;
+    /* height: 44%; */
+    /* width: 20%; */
+    top: 60%;
+    left:20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.popup img 
+{
+    width: 50%;
+    height: 30%;
+    border-radius: 2em;
+}
+.popup div{
+    width: 100%;
+    font-weight: bold;
+    color: white;
+} 
+
+.pope
+{
+    color: black;
+}
+
+.modaleAjout 
+{
+    display: flex;
+    flex-direction: column;
+    background-color: #799eb0;
+    border-radius: 1em;
+    position: absolute;
+    /* height: 45%; */
+    width: 15%;
+    top: 15%;
+    left: 10%;
+    padding:0 1em;
+    
+    
+
+}
+.modaleAjout img
+{
+    width: 50%;
+   height: 100%;
+}
+.modaleAjout>div:nth-child(1)
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 5em;
+}
+.modaleAjout>div:nth-child(3)
+{
+    height: 5em;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.modaleAjout>div:nth-child(3) button
+{
+    height: 69%;
+    border-radius: 1em;
+    width: 40%;
+}
+.fils1>div:nth-child(1)
+{
+    display: flex;
+    flex-direction: column;
+    gap: 0.3em;
+    /* background-color: red; */
+    color: white;
+    font-weight: bold;
+    
+}
+.fils1>div:nth-child(1) input
+{
+    width: 100%;
+    height: 3em;
+    border-radius: 1em;
+}
+/* 
+.fils1
+{
+    display: flex;
+    flex-direction:  row-reverse;
+    width: 100%;
+    height: 85%;
+
+}
+ .fils1 img 
+{
+    width: 0%;
+    height: 35%;
+}
+.fils1 div{
+    display: flex;
+    flex-direction: column;
+    margin-left: 0.31em;
+    margin-top: 0.31em;
+    width: 100%;
+    height: 100%;
+    color: white;
+}
+
+.modaleAjout div input
+{
+    width: 100%;
+    height: 15%;
+    border-radius: 1em;
+}
+
+
+.modaleAjout>div:nth-child(2)
+{
+    height: 15%;
+    background-color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5%;
+}
+
+.modaleAjout>div:nth-child(2) button
+{
+    border-radius: 1em;
+    height: 70%;
+
+} */
+
+.container-recherche {
+    position: absolute;
+    /* width: 280px; */
+    top: 20%;
+    left: 55%;
+    z-index: 2;
+    /* transform: translate(280px); */
+    width: 20px;
+    transition-property: width;
+    transition-duration: 2s;
+}
+.container-recherche:hover
+{
+    transform: scaleX(1);
+    /* transform: translate(20px); */
+    width: 280px;
+}
+
+.container-recherche #inputrecherche {
+    padding: .6rem 2rem;
+    border-radius: 10px;
+    width: 100%;
+}
+
+.barre-info{
+    list-style-type: none;
+    background-color: #f1f1f1;
+    color: #06293D;
+    border-radius: 10px;
+}
+
+.infoClientRec {
+    padding: .6rem 1rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+}
+
+.infoClientRec:hover {
+    background-color: #27566B;
+    color: #f1f1f1;
+}
+
+.infoClientRec .img {
+    width: 30px;
+    height: 30px;
+    background-size: cover;
+    border-radius: 50%;
+}

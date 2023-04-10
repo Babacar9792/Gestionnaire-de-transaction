@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S01</title>
+    <link rel="stylesheet" href="style(4).css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div class="container dflex jcc aic fdc">
+        <!-- div des icones pour ajouter de nouvelles fonctionnalité --> 
+        <div class="icone dflex aic">
+            <i class="fa-solid fa-user-plus"></i>
+            <i class="fa fa-trash"></i>
+            <i class="fa fa-file"></i>
+
+        </div>
+        <div class="card">
+            <div class="infos dflex">
+                <div class="info flex2 dflex fdc jcsb">
+                    <div class="row dflex jcsb aic">
+                        <span class="label">Nom :</span>
+                        <span class="data" id="lastname">...</span>
+                    </div>
+                    <div class="row dflex jcsb aic">
+                        <span class="label">Prénom :</span>
+                        <span class="data" id="firstname">...</span>
+                    </div>
+                    <div class="row dflex jcsb aic">
+                        <span class="label">Téléphone :</span>
+                        <span class="data" id="phone">...</span>
+                    </div>
+                    <div class="row dflex jcsb aic">
+                        <span class="label">Email :</span>
+                        <span class="data" id="email">...</span>
+                    </div>
+                    <div class="row dflex jcsb aic">
+                        <span class="label">Solde :</span>
+                        <span class="data" id="solde">...</span>
+                    </div>
+                </div>
+                <div class="photo flex1">
+                    <img src="..." alt="...">
+                </div>
+            </div>
+            <hr>
+            <div class="transactions dflex fdc">
+                <div class="title" style="flex: 3;">
+                    <span>Transactions (<code>...</code>)</span>
+                    <span id="btnDetail" class="btn-detail">+</span>
+                </div>
+                <div class="content">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Numero</th>
+                                <th>Date</th>
+                                <th>Sens</th>
+                                <th>Montant</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- <tr>
+                                <td>...</td>
+                                <td>...</td>
+                                <td>...</td>
+                                <td>...</td>
+                            </tr> -->
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="form">
+                <div class="form-group">
+                    <label for="mnt">Montant</label>
+                    <input type="number" id="mnt" placeholder="Montant..." class="from-control">
+                </div>
+                <div class="form-group">
+                    <label for="trans">Transaction</label>
+                    <select id="trans" class="from-control">
+                        <option value="d">Depot</option>
+                        <option value="r">Retrait</option>
+                    </select>
+                </div>
+                <button type="button">Enregistrer</button>
+                <input type="number" placeholder="Saisir un numero de telephone" class="from-control" id="transfertNum">
+                <i class="fa fa-eye"></i>
+            </div>
+        </div>
+        <div class="navigation">
+            <button type="button" class="next"> suivant </button>
+        </div>
+        <div class="divError"></div>
+      <div id="detailTransac">
+        <i class="fa-solid fa-xmark"></i>
+        <select name="typeTransac" id="TypeTransac">
+            <option value="d">depot</option>
+            <option value="r">retrai</option>
+            <option value="t">transfert</option>
+            <option value="a">annulé</option>
+            <!-- <option value = "n">selon un numéro</option> -->
+        </select>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Montant</th>
+                            <th>types</th>
+                            <th>destinataire</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- <tr>
+                                <td>1</td>
+                                <td>2</td>
+                                <td>3</td>
+                                <td>3</td>
+                        </tr> -->
+                      
+                    </tbody>
+                </table>
+                    <!--      <p>AZERTYUAZERTYUIOPSDFGHJKLMWXCVBN?AZERTYUIOQSDFGHJKLWXCVBN?AZERTYUIOQSDFGHJKWXCVBN1234567890AZERTYUIOPKJHGFDSdfcvjkiuytrezsqfxcvbhjkuytrdswdxcvjhkluyitrdsxcvghjkuytrdfghjkuytrdfscvghjythfdfjkytjregqfstyuiutdsfqghjjgdhsfhjklhgfds</p>
+                                <p>AZERTYUAZERTYUIOPSDFGHJKLMWXCVBN?AZERTYUIOQSDFGHJKLWXCVBN?AZERTYUIOQSDFGHJKWXCVBN1234567890AZERTYUIOPKJHGFDSdfcvjkiuytrezsqfxcvbhjkuytrdswdxcvjhkluyitrdsxcvghjkuytrdfghjkuytrdfscvghjythfdfjkytjregqfstyuiutdsfqghjjgdhsfhjklhgfds</p>
+                                <p>AZERTYUAZERTYUIOPSDFGHJKLMWXCVBN?AZERTYUIOQSDFGHJKLWXCVBN?AZERTYUIOQSDFGHJKWXCVBN1234567890AZERTYUIOPKJHGFDSdfcvjkiuytrezsqfxcvbhjkuytrdswdxcvjhkluyitrdsxcvghjkuytrdfghjkuytrdfscvghjythfdfjkytjregqfstyuiutdsfqghjjgdhsfhjklhgfds</p>
+                                <p>AZERTYUAZERTYUIOPSDFGHJKLMWXCVBN?AZERTYUIOQSDFGHJKLWXCVBN?AZERTYUIOQSDFGHJKWXCVBN1234567890AZERTYUIOPKJHGFDSdfcvjkiuytrezsqfxcvbhjkuytrdswdxcvjhkluyitrdsxcvghjkuytrdfghjkuytrdfscvghjythfdfjkytjregqfstyuiutdsfqghjjgdhsfhjklhgfds</p>
+                                <p>AZERTYUAZERTYUIOPSDFGHJKLMWXCVBN?AZERTYUIOQSDFGHJKLWXCVBN?AZERTYUIOQSDFGHJKWXCVBN1234567890AZERTYUIOPKJHGFDSdfcvjkiuytrezsqfxcvbhjkuytrdswdxcvjhkluyitrdsxcvghjkuytrdfghjkuytrdfscvghjythfdfjkytjregqfstyuiutdsfqghjjgdhsfhjklhgfds</p>
+                                <p>AZERTYUAZERTYUIOPSDFGHJKLMWXCVBN?AZERTYUIOQSDFGHJKLWXCVBN?AZERTYUIOQSDFGHJKWXCVBN1234567890AZERTYUIOPKJHGFDSdfcvjkiuytrezsqfxcvbhjkuytrdswdxcvjhkluyitrdsxcvghjkuytrdfghjkuytrdfscvghjythfdfjkytjregqfstyuiutdsfqghjjgdhsfhjklhgfds</p>
+                                <p>AZERTYUAZERTYUIOPSDFGHJKLMWXCVBN?AZERTYUIOQSDFGHJKLWXCVBN?AZERTYUIOQSDFGHJKWXCVBN1234567890AZERTYUIOPKJHGFDSdfcvjkiuytrezsqfxcvbhjkuytrdswdxcvjhkluyitrdsxcvghjkuytrdfghjkuytrdfscvghjythfdfjkytjregqfstyuiutdsfqghjjgdhsfhjklhgfds</p>
+                                <p>AZERTYUAZERTYUIOPSDFGHJKLMWXCVBN?AZERTYUIOQSDFGHJKLWXCVBN?AZERTYUIOQSDFGHJKWXCVBN1234567890AZERTYUIOPKJHGFDSdfcvjkiuytrezsqfxcvbhjkuytrdswdxcvjhkluyitrdsxcvghjkuytrdfghjkuytrdfscvghjythfdfjkytjregqfstyuiutdsfqghjjgdhsfhjklhgfds</p>
+                                <p>AZERTYUAZERTYUIOPSDFGHJKLMWXCVBN?AZERTYUIOQSDFGHJKLWXCVBN?AZERTYUIOQSDFGHJKWXCVBN1234567890AZERTYUIOPKJHGFDSdfcvjkiuytrezsqfxcvbhjkuytrdswdxcvjhkluyitrdsxcvghjkuytrdfghjkuytrdfscvghjythfdfjkytjregqfstyuiutdsfqghjjgdhsfhjklhgfds</p>
+                                <p>AZERTYUAZERTYUIOPSDFGHJKLMWXCVBN?AZERTYUIOQSDFGHJKLWXCVBN?AZERTYUIOQSDFGHJKWXCVBN1234567890AZERTYUIOPKJHGFDSdfcvjkiuytrezsqfxcvbhjkuytrdswdxcvjhkluyitrdsxcvghjkuytrdfghjkuytrdfscvghjythfdfjkytjregqfstyuiutdsfqghjjgdhsfhjklhgfds</p>
+                     -->
+        </div>
+        <button id="detail-transac">Detail</button>
+        <div class="popup">
+                <img src="" alt="" srcset="" id="popImg">
+                <div>
+                    <p>Prenom:<span class="popPrenom pope"></span></p>
+                    <p>Nom: <span class="popNom pope"></span></p>
+                    <p>de:<span class="popTelephone pope"></span></p>
+                    <p>type de transfert:<span class="popType pope"></span></p>
+                    <p>Montant <span class="popMontant pope"></span></p>
+                    <p>date:<span class="popDate pope"></span></p>
+                    <p>à:<span class="popDestinataire pope"></span></p>
+                </div>
+        </div>
+        <div class="modaleAjout">
+            <div>
+                <img src="https://images.unsplash.com/photo-1534294668821-28a3054f4256?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80" alt="">
+            </div>
+               <div class="fils1"> 
+                <!-- https://images.unsplash.com/photo-1534294668821-28a3054f4256?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80 -->
+                    <div>
+                        <label for="prenomAjout">Prenom</label><input type="text" id="prenomAjout">
+                        <label for="nomAjout">Nom</label><input type="text" id="nomAjout">
+                        <label for="telephoneAjout">Téléphone</label><input type="text" id="telephoneAjout">
+                        <label for="emailAjout">Email</label><input type="text" id="emailAjout">
+                        <label for="photoAjout">Photo</label><input type="text" id="photoAjout">
+                    </div>
+                </div>
+                <div>
+                    <button>Ajouter</button>
+                    <button>Annuler</button>
+                </div>
+        </div>
+        <div class="container-recherche">
+            <input type="search" id="inputrecherche" placeholder="Rechercher un client">
+            <ul class="barre-info">
+              <!-- les li -->
+            </ul>
+        </div>
+    </div>
+
+
+
+    <script src="app.js"></script>
+</body>
+</html>
