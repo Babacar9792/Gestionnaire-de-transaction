@@ -137,27 +137,167 @@ const TypeTransac = document.querySelector("#TypeTransac")
 const popup = document.querySelector(".popup");
 const faXmark = document.querySelector(".fa-xmark");
 const ajouterNewUtilisateur = document.querySelector(".fa-user-plus");
-const prenomAjout  = document.querySelector("#prenomAjout");
-const nomAjout  = document.querySelector("#nomAjout");
-const telephoneAjout  = document.querySelector("#telephoneAjout");
-const emailAjout  = document.querySelector("#emailAjout");
-const photoAjout  = document.querySelector("#photoAjout");
+const prenomAjout = document.querySelector("#prenomAjout");
+const nomAjout = document.querySelector("#nomAjout");
+const telephoneAjout = document.querySelector("#telephoneAjout");
+const emailAjout = document.querySelector("#emailAjout");
+const photoAjout = document.querySelector("#photoAjout");
+const ajouterNewUser = document.querySelector("#ajouterNewUser");
+const annulerAjout = document.querySelector("#annulerAjout");
+const modaleAjout = document.querySelector(".modaleAjout");
+const modalSupprimer =  document.querySelector(".modalSupprimer");
+const faTrash = document.querySelector(".fa-trash");
+const btncanceldel = document.querySelector("#btncanceldel")
+const btnDel = document.querySelector("#btnDel");
+const imgAjout = document.querySelector("#imgAjout");
+const modaleModifie =  document.querySelector(".modaleModifie");
+const faFile = document.querySelector(".fa-file");
+const annuleModifie = document.querySelector("#annuleModifie");
+const prenomModifie = document.querySelector("#prenomModifie")
+const nomModifie = document.querySelector("#nomModifie")
+const emailModifie = document.querySelector("#emailModifie")
+const telephoneModifie = document.querySelector("#telephoneModifie")
+const photoModifie = document.querySelector("#photoModifie")
+const imgAModifie  = document.querySelector("#imgAModifie");
+const ModifieUser =  document.querySelector("#ModifieUser");
+modalSupprimer.style.display= "none";
+modaleAjout.style.display = "none";
+modaleModifie.style.display = "none";
 
-
-
-
-
-prenomAjout.addEventListener("input", ()=>
+ModifieUser.addEventListener("click",()=>
 {
-    notNumber(prenomAjout.value,prenomAjout)
+    if (!(controleAjout(prenomModifie, nomModifie, telephoneModifie, emailModifie, photoModifie))) {
+        console.log("aze")
+    }
+    else if (!(numIsInclude(telephoneModifie.value)) && telephoneModifie.value != Users[indpresent].telephone) {
+        console.log("ty");
+    }
+    else {
+
+        Users[indpresent].prenom = prenomModifie.value
+        Users[indpresent].nom = nomModifie.value
+        Users[indpresent].telephone = telephoneModifie.value
+        Users[indpresent].email = emailModifie.value
+        Users[indpresent].photo = photoModifie.value
+
+        printUser(Users[indpresent])
+        modaleModifie.style.display = "none";
+        // console.log(Users)
+
+    }
+
 })
-nomAjout.addEventListener("input", ()=>
+
+
+annuleModifie.addEventListener("click",()=>
 {
-    notNumber(nomAjout.value,nomAjout)
+    modaleModifie.style.display = "none";
 })
-telephoneAjout.addEventListener("input",()=>
+faFile.addEventListener("click",()=>
 {
-    notletter(telephoneAjout.value,telephoneAjout)
+    modaleModifie.style.display = "flex";
+    modalSupprimer.style.display= "none";
+    modaleAjout.style.display = "none";
+    detailTransacModale.style.display = "none";
+    prenomModifie.value = Users[indpresent].prenom
+    nomModifie.value  = Users[indpresent].nom
+    emailModifie.value = Users[indpresent].email
+    photoModifie.value = Users[indpresent].photo
+    telephoneModifie.value = Users[indpresent].telephone
+    imgAModifie.src = Users[indpresent].photo
+
+
+
+
+    
+    
+   
+})
+
+photoModifie.addEventListener("change",()=>
+{
+    imgAModifie.src =  photoModifie.value
+
+})
+
+photoAjout.addEventListener("change",()=>
+{
+    imgAjout.src = photoAjout.value;
+})
+
+btnDel.addEventListener("click",()=>
+{
+   
+    Users.splice(getIndiceBytel(Users[indpresent].telephone,Users),1)
+    printUser(Users[randomNumber(Users.length)])
+    modalSupprimer.style.display= "none";
+    
+
+})
+
+btncanceldel.addEventListener("click",()=>
+{
+    modalSupprimer.style.display= "none";
+})
+faTrash.addEventListener("click",()=>
+{
+    let h4 = document.querySelector("h4")
+    h4.innerText = Users[indpresent].prenom + " " + Users[indpresent].nom
+    console.log(Users)
+    detailTransacModale.style.display = "none";
+   
+    modaleAjout.style.display = "none";
+    modaleModifie.style.display = "none";
+    modalSupprimer.style.display= "block";
+    console.log(Users[indpresent])
+    
+    
+
+
+})
+
+
+
+annulerAjout.addEventListener("click",()=>
+{
+    modaleAjout.style.display = "none";
+
+})
+
+ajouterNewUser.addEventListener("click", () => {
+
+    if (!(controleAjout(prenomAjout, nomAjout, telephoneAjout, emailAjout, photoAjout))) {
+        console.log("aze")
+    }
+    else if (!(numIsInclude(telephoneAjout.value))) {
+        console.log("ty");
+    }
+    else {
+
+        Users.push({
+            prenom: prenomAjout.value,
+            nom: nomAjout.value,
+            telephone: telephoneAjout.value,
+            email: emailAjout.value,
+            photo: photoAjout.value,
+            transactions: [],
+        })
+        indpresent = Users.length -1
+        printUser(Users[Users.length - 1])
+        modaleAjout.style.display = "none";
+        console.log(Users)
+
+    }
+
+})
+prenomAjout.addEventListener("input", () => {
+    notNumber(prenomAjout.value, prenomAjout)
+})
+nomAjout.addEventListener("input", () => {
+    notNumber(nomAjout.value, nomAjout)
+})
+telephoneAjout.addEventListener("input", () => {
+    notletter(telephoneAjout.value, telephoneAjout)
 })
 
 
@@ -177,19 +317,23 @@ deletes.forEach(icone => {
         let indic = getIndiceBynumero(Users[indpresent].transactions, num)
         Users[indpresent].transactions[indic].sens = 0;
         Users[indpresent].transactions[indic].type = "annulé";
+        Users[indpresent].transactions[indic].day = date;
         afficheTransac(Users[indpresent].transactions, tbody)
-        
+
     })
 
 });
 
-ajouterNewUtilisateur.addEventListener("click",()=>
-{
-    
+ajouterNewUtilisateur.addEventListener("click", () => {
+
+    modaleAjout.style.display = "flex";
+    detailTransacModale.style.display = "none";
+    modaleModifie.style.display = "none";    
+    modalSupprimer.style.display= "none";
+  
 })
 
-faXmark.addEventListener("click",()=>
-{
+faXmark.addEventListener("click", () => {
     document.querySelectorAll("tbody")[1].innerHTML = "";
     detailTransacModale.style.display = "none";
     popup.style.display = "none";
@@ -201,23 +345,23 @@ TypeTransac.addEventListener("change", () => {
     switch (TypeTransac.value) {
         case 'r':
 
-                afficheTransactionDetail(recuptransactSwitchData("retrait", Users[indpresent].transactions), document.querySelectorAll("tbody")[1]); break;
+            afficheTransactionDetail(recuptransactSwitchData("retrait", Users[indpresent].transactions), document.querySelectorAll("tbody")[1]); break;
 
         case 'd':
 
 
-                afficheTransactionDetail(recuptransactSwitchData("depot", Users[indpresent].transactions), document.querySelectorAll("tbody")[1]);break;
-        
-    
-        case 't' :
+            afficheTransactionDetail(recuptransactSwitchData("depot", Users[indpresent].transactions), document.querySelectorAll("tbody")[1]); break;
 
-                afficheTransactionDetail(recuptransactSwitchData("transfert", Users[indpresent].transactions), document.querySelectorAll("tbody")[1]);break;
-        case 'a': 
 
-                afficheTransactionDetail(recuptransactSwitchData("annulé", Users[indpresent].transactions), document.querySelectorAll("tbody")[1]);break;
+        case 't':
+
+            afficheTransactionDetail(recuptransactSwitchData("transfert", Users[indpresent].transactions), document.querySelectorAll("tbody")[1]); break;
+        case 'a':
+
+            afficheTransactionDetail(recuptransactSwitchData("annulé", Users[indpresent].transactions), document.querySelectorAll("tbody")[1]); break;
         case 'n': break;
-        default : break;
-   
+        default: break;
+
     }
 })
 
@@ -238,19 +382,28 @@ faEye.addEventListener("click", () => {
 
 detailTransac.addEventListener("click", () => {
     popup.style.display = "none";
-
     detailTransacModale.style.display = "block";
+    modalSupprimer.style.display= "none";
+    modaleAjout.style.display = "none";
+    modaleModifie.style.display = "none";
+
     //alert("wou")
     afficheTransactionDetail(Users[indpresent].transactions, document.querySelectorAll("tbody")[1])
-   
+
     //console.log(recuptransactSwitchData("transfert",Users[indpresent].transactions))
 
 })
 
 
 btnenregistrer.addEventListener("click", () => {
+    date = new Date().toLocaleString();
     popup.style.display = "none";
     detailTransacModale.style.display = "none";
+    modalSupprimer.style.display= "none";
+    modaleAjout.style.display = "none";
+    detailTransacModale.style.display = "none";
+    modaleModifie.style.display = "none";
+
 
     let pricePrinter = parseFloat(mnt.value)
     if (mnt.value === '') {
@@ -280,6 +433,8 @@ btnenregistrer.addEventListener("click", () => {
                         messError(divError, "Transfert annulé ")
                         Users[indpresent].transactions[Users[indpresent].transactions.length - 1].sens = 0;
                         Users[indpresent].transactions[Users[indpresent].transactions.length - 1].type = "Annulé";
+                        Users[indpresent].transactions[Users[indpresent].transactions.length - 1].day = date;
+
                         printUser(Users[indpresent]);
 
                     }, 3000);
@@ -298,6 +453,8 @@ btnenregistrer.addEventListener("click", () => {
                             retrait(pricePrinter, Users[indpresent], Users[indpresent].transactions[Users[indpresent].transactions.length - 1].numero + 1)
                             Users[indpresent].transactions[Users[indpresent].transactions.length - 1].vers = Users[indice].telephone;
                             Users[indpresent].transactions[Users[indpresent].transactions.length - 1].type = "transfert";
+                            Users[indpresent].transactions[Users[indpresent].transactions.length - 1].day = date;
+
                             printUser(Users[indpresent]);
                             depot(pricePrinter, Users[indice], Users[indice].transactions[Users[indice].transactions.length - 1].numero + 1);
 
@@ -335,7 +492,7 @@ btnenregistrer.addEventListener("click", () => {
 
 
     }
-   
+
 
     console.log(deletes)
 
@@ -346,6 +503,12 @@ next.addEventListener("click", () => {
     printUser(Users[indpresent]);
     popup.style.display = "none";
     detailTransacModale.style.display = "none";
+    modalSupprimer.style.display= "none";
+    modaleAjout.style.display = "none";
+    modaleModifie.style.display = "none";
+
+ 
+    
 
 
 })
@@ -375,7 +538,7 @@ function afficheTransac(tab, div) {
     div.innerHTML = "";
     tab.forEach(transac => {
         let tr = document.createElement("tr");
-       
+
 
         let td1 = document.createElement("td");
         let td2 = document.createElement("td");
@@ -387,13 +550,9 @@ function afficheTransac(tab, div) {
             td3.style.color = "green";
         }
         else if (transac.sens === -1) {
-            if (transac.vers === "") {
-
+             
                 td3.style.color = "red";
-            }
-            else {
-                td3.style.color = "yellow";
-            }
+                        
             // getIndiceBytel(numTrans,Users)
         }
         else {
@@ -406,18 +565,13 @@ function afficheTransac(tab, div) {
             let ico = document.createElement("i");
             ico.setAttribute("class", "fa-solid fa-square-xmark");
             td3.appendChild(ico);
-            // setTimeout(() => {
-            //     ico.style.display = "none"
-
-            // }, 10000);
+           
             ico.addEventListener("click", (e) => {
-                // alert("diao");
-                // console.log("suppre")
+              
                 let child1 = e.target;
                 let parent1 = child1.parentNode;
                 let parent2 = parent1.parentNode
-                // console.log("suppre")
-                // console.log(parent2);
+               
                 let num = parseInt(parent2.children[0].textContent);
                 let transactionFordel = getTransactionByNumero(Users[indpresent].transactions, num);
                 let numRetir = transactionFordel.vers
@@ -457,8 +611,15 @@ function afficheTransac(tab, div) {
 
         i++;
         div.appendChild(tr);
-        solde.textContent = calculeSolde(tab);
-        code.textContent = tab.length
+        // if (tab.length === 0) {
+        //     solde.textContent = 0;
+        //     code.textContent = 0
+
+        // } else {
+
+            solde.textContent = calculeSolde(tab);
+            code.textContent = tab.length
+       // }
     });
 
 }
@@ -468,50 +629,47 @@ function afficheTransactionDetail(transactions, div) {
     div.innerHTML = "";
     transactions.forEach(transa => {
         let tr = document.createElement("tr");
-        tr.addEventListener("mouseenter",(e)=>
-        {
-            
+        tr.addEventListener("mouseenter", (e) => {
+
             let child1 = e.target;
             console.log(child1.children[0].textContent)
             // let parent1 = child1.parentNode;
             // let parent2 = parent1.parentNode;
             // console.log(child1)
             let popPrenom = document.querySelector(".popPrenom")
-            let popNom =  document.querySelector(".popNom")
+            let popNom = document.querySelector(".popNom")
             let popTelephone = document.querySelector(".popTelephone").innerText = Users[indpresent].telephone
             let popType = document.querySelector(".popType").innerText = child1.children[2].textContent
-            let popDate=  document.querySelector(".popDate").innerText = child1.children[0].textContent;
+            let popDate = document.querySelector(".popDate").innerText = child1.children[0].textContent;
             let popMontant = document.querySelector(".popMontant").innerText = child1.children[1].textContent
             let popDestinataire = document.querySelector(".popDestinataire").innerText = child1.children[3].textContent;
-            let popImg =  document.querySelector("#popImg");
-            if(popDestinataire == "")
-            {
+            let popImg = document.querySelector("#popImg");
+            if (popDestinataire == "") {
                 popup.children[1].children[0].style.display = "none";
                 popup.children[1].children[1].style.display = "none";
                 popup.children[1].children[6].style.display = "none";
                 popImg.style.display = "none";
-                popDestinataire.innerText ="Pas de destinataire" + popType + "normale";
+                popDestinataire.innerText = "Pas de destinataire" + popType + "normale";
                 popup.style.display = "flex";
             }
-            else 
-            {
-                popup.style.height = "44%"; 
-                popup.style.width = " 20%"; 
-               
+            else {
+                popup.style.height = "44%";
+                popup.style.width = " 20%";
+
                 popup.children[1].children[0].style.display = "block";
                 popup.children[1].children[1].style.display = "block";
                 popup.children[1].children[6].style.display = "block";
                 popImg.style.display = "block";
-                popPrenom.innerText = Users[getIndiceBytel(popDestinataire,Users)].prenom
-                popNom.innerText = Users[getIndiceBytel(popDestinataire,Users)].nom
-                popImg.src = Users[getIndiceBytel(popDestinataire,Users)].photo
+                popPrenom.innerText = Users[getIndiceBytel(popDestinataire, Users)].prenom
+                popNom.innerText = Users[getIndiceBytel(popDestinataire, Users)].nom
+                popImg.src = Users[getIndiceBytel(popDestinataire, Users)].photo
                 console.log(popTelephone)
                 popup.style.display = "flex";
 
             }
-            
 
-            
+
+
             // console.log(Users[getIndiceBynumero(tr.children[3].textContent)])
         })
         let td1 = document.createElement("td");
@@ -561,17 +719,10 @@ function RechercheUser(motCherche) {
             barreInfo.appendChild(li)
             li.addEventListener('click', () => {
                 inputRecherche.value = li.innerText;
-                li.style.display ="none";
+                li.style.display = "none";
                 printUser(client);
-                indpresent =  Users.indexOf(client);
-                // createTransaction(client.transactions.montants, client.transactions.sens, date);
-                // solde.innerText = getSoldeByClient(client);
-                // lastname.innerHTML = client.nom
-                // firstname.innerHTML = client.prenom
-                // phone.innerHTML = client.number
-                // email.innerHTML = client.mail
-                // photo.src = client.image
-                // barreInfo.innerHTML = ''
+                indpresent = Users.indexOf(client);
+               
             })
         }
     }
@@ -611,6 +762,8 @@ function randomNumber(max) {
 }
 
 function depot(mnt, user, i) {
+    date = new Date().toLocaleString();
+
     let objet = {
         numero: i,
         montant: mnt,
@@ -624,6 +777,7 @@ function depot(mnt, user, i) {
 }
 
 function retrait(mnt, user, i) {
+    date = new Date().toLocaleString();
     let objet = {
         numero: i,
         montant: mnt,
@@ -640,10 +794,11 @@ function retrait(mnt, user, i) {
 function controleRetrait(montant, user) {
     let solde = calculeSolde(user.transactions)
 
-    return montant < solde;
+    return montant <= solde;
 }
 
 function transfert(montant, userDepart, userArrivé) {
+    date = new Date().toLocaleString();
     if (!(controleRetrait(montant, userDepart))) {
         messError(divError, "Votre solde ne vous permet pas de faire un tel transfert.")
 
@@ -721,59 +876,126 @@ function recuptransactSwitchData(type, transac) {
     });
     return tab
 }
+function verificationMail(text) {
+    let mail = /^[a-z]+[a-z0-9.-]*@[a-z0-9-.]{2,}\.([a-z]){2,6}$/i.test(text);
+    return mail;
+}
+console.log(verificationMail(""))
+function NumTelValide(input) {
+    let num = input.value;
+    if (num.length !== 9 && num.length !== 12) { return 1; }
+    if (num[0] !== "2" && num[0] !== "7") { return 1 }
+    if (num[0] == "2" && (num[1] !== "2" && num[2] !== "1")) { return 1 }
+    if (num[0] == "7" && (num[1] !== "7" && num[1] !== "6" && num[1] !== "8" && num[1] !== "5" && num[1] !== "0")) { return 1 }
+    return 0;
+}
+
+function goodDataToAdd(inputTel, inputMail) {
+    if (!(verificationMail(inputMail.value))) {
+        messError(divError, "Mail incorrecte")
+        return false
+    }
+    if (NumTelValide(inputTel) === 1) {
+        messError(divError, "Numero de téléphone incorrecte")
+        return false;
+    }
+    return true
+}
+
+
+function isWrittenInInput(input) {
+    if (input.value === "") {
+        return false;
+    }
+    return true;
+}
+
+function allWritten(inputPrenom, inputNom, inputTel, inputMail, inputPhoto) {
+    if (isWrittenInInput(inputPrenom) == false || isWrittenInInput(inputNom) == false || isWrittenInInput(inputTel) == false || isWrittenInInput(inputMail) == false || isWrittenInInput(inputPhoto) == false) {
+        return false;
+    }
+    return true;
+
+
+}
+
+function controleAjout(inputPrenom, inputNom, inputTel, inputMail, inputPhoto) {
+    if (!(allWritten(inputPrenom, inputNom, inputTel, inputMail, inputPhoto))) {
+        messError(divError, "Veuiller remplir tous les champs");
+        return false;
+    }
+    if (!(goodDataToAdd(inputTel, inputMail))) {
+        return false;
+
+    }
+    return true;
+
+}
+
 
 // Fonction pour empêcher à l'utilisatuer de saisir des chiffres ou des caractères spéciaux
-function notNumber(text,input)
-{
+function notNumber(text, input) {
     let regular = /[^a-z ]$/i;
-    let value = text.replace(regular,"");
+    let value = text.replace(regular, "");
     input.value = value;
 }
 
 
 // Fonction pour empêcher la saisie de lettre dans un input
-function notletter(text,input)
-{
+function notletter(text, input) {
     let regular = /[^0-9]$/g;
-    let value = text.replace(regular,"");
+    let value = text.replace(regular, "");
     input.value = value;
 }
 
+const barreNum = document.querySelector(".barreNum")
 
 
-// messError(divError,"veuiller remplir la case");
-// console.log(getIndiceBytel('751234567',Users))
+function barreClientNum(tel) {
+    const li = document.createElement('li');
+    const span = document.createElement('span');
+    li.classList.add('infoClientRec');
+    span.classList.add('nom');
+    span.textContent = `${tel}`;
+    li.appendChild(span);
+    return li;
+}
 
 
-// console.log(controleRetrait(7000,Users[1]))
+transfertNum.addEventListener("input", () => {
+    const motCherche = transfertNum.value
+    barreNum.innerHTML = ''
+    if (motCherche != '') {
+        RechercheUserNum(motCherche)
+    }
+
+})
 
 
+function RechercheUserNum(motCherche) {
+    for (let client of Users) {
+        if (client.telephone.includes(motCherche)) {
+            const li = barreClientNum(client.telephone)
+            barreNum.appendChild(li)
+            li.addEventListener('click', () => {
+                transfertNum.value = client.telephone;
+                barreNum.innerHTML = '';
+            })
+        }
+    }
+}
 
 
-// console.log(date.getHours())
-// console.log(Users)
-// firstname.textContent = "babacar";
-// lastname.textContent = "sy"
-// phone.textContent = "771234567";
-// email.textContent = "babacar@gmail.com"
-// solde.textContent  = 12000;
-// code.textContent = 2
-// img.src = "https://images.unsplash.com/photo-1611608822650-925c227ef4d2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1935&q=80"
+function numIsInclude(motCherche) {
+    let val = true
+    for (let client of Users) {
+        if (client.telephone.includes(motCherche)) {
+            messError(divError, "Ce numero est deja attribuer");
+            val = false
 
+        }
+    }
+    return val;
+}
+// console.log(numIsInclude("771234567"));
 
-// objet = {
-//     prenom:,
-//     nom:,
-//     telephone:,
-//     email:,
-//      photo:,
-//     transaction: [
-//                     {
-//                         montant:,
-//                         sens:,
-//                         day:,
-//                         type:,
-
-//                     }
-//     ]
-// }
