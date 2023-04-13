@@ -111,7 +111,7 @@ console.log()
 
 
 
-let date = new Date().toLocaleString();
+let date = new Date();
 const lastname = document.querySelector("#lastname")
 const firstname = document.querySelector("#firstname")
 const phone = document.querySelector("#phone");
@@ -145,12 +145,12 @@ const photoAjout = document.querySelector("#photoAjout");
 const ajouterNewUser = document.querySelector("#ajouterNewUser");
 const annulerAjout = document.querySelector("#annulerAjout");
 const modaleAjout = document.querySelector(".modaleAjout");
-const modalSupprimer =  document.querySelector(".modalSupprimer");
+const modalSupprimer = document.querySelector(".modalSupprimer");
 const faTrash = document.querySelector(".fa-trash");
 const btncanceldel = document.querySelector("#btncanceldel")
 const btnDel = document.querySelector("#btnDel");
 const imgAjout = document.querySelector("#imgAjout");
-const modaleModifie =  document.querySelector(".modaleModifie");
+const modaleModifie = document.querySelector(".modaleModifie");
 const faFile = document.querySelector(".fa-file");
 const annuleModifie = document.querySelector("#annuleModifie");
 const prenomModifie = document.querySelector("#prenomModifie")
@@ -158,14 +158,14 @@ const nomModifie = document.querySelector("#nomModifie")
 const emailModifie = document.querySelector("#emailModifie")
 const telephoneModifie = document.querySelector("#telephoneModifie")
 const photoModifie = document.querySelector("#photoModifie")
-const imgAModifie  = document.querySelector("#imgAModifie");
-const ModifieUser =  document.querySelector("#ModifieUser");
-modalSupprimer.style.display= "none";
+const imgAModifie = document.querySelector("#imgAModifie");
+const ModifieUser = document.querySelector("#ModifieUser");
+let beneaffaire;
+modalSupprimer.style.display = "none";
 modaleAjout.style.display = "none";
 modaleModifie.style.display = "none";
 
-ModifieUser.addEventListener("click",()=>
-{
+ModifieUser.addEventListener("click", () => {
     if (!(controleAjout(prenomModifie, nomModifie, telephoneModifie, emailModifie, photoModifie))) {
         console.log("aze")
     }
@@ -189,77 +189,109 @@ ModifieUser.addEventListener("click",()=>
 })
 
 
-annuleModifie.addEventListener("click",()=>
-{
+annuleModifie.addEventListener("click", () => {
     modaleModifie.style.display = "none";
 })
-faFile.addEventListener("click",()=>
-{
+faFile.addEventListener("click", () => {
+    if(Users.length == 0)
+    {
+        messError(divError,"il n'y a plus de client disponible pour pouvoir effectuer une telle opération")
+    }
+    else 
+    {
+
+    
     modaleModifie.style.display = "flex";
-    modalSupprimer.style.display= "none";
+    modalSupprimer.style.display = "none";
     modaleAjout.style.display = "none";
     detailTransacModale.style.display = "none";
     prenomModifie.value = Users[indpresent].prenom
-    nomModifie.value  = Users[indpresent].nom
+    nomModifie.value = Users[indpresent].nom
     emailModifie.value = Users[indpresent].email
     photoModifie.value = Users[indpresent].photo
     telephoneModifie.value = Users[indpresent].telephone
     imgAModifie.src = Users[indpresent].photo
+}
 
 
 
 
-    
-    
-   
-})
 
-photoModifie.addEventListener("change",()=>
-{
-    imgAModifie.src =  photoModifie.value
+
 
 })
 
-photoAjout.addEventListener("change",()=>
-{
+photoModifie.addEventListener("change", () => {
+    imgAModifie.src = photoModifie.value
+
+})
+
+photoAjout.addEventListener("change", () => {
     imgAjout.src = photoAjout.value;
 })
 
-btnDel.addEventListener("click",()=>
-{
-   
-    Users.splice(getIndiceBytel(Users[indpresent].telephone,Users),1)
-    printUser(Users[randomNumber(Users.length)])
-    modalSupprimer.style.display= "none";
-    
+btnDel.addEventListener("click", () => {
+    if(Users.length === 1)
+    {
+        Users.splice(getIndiceBytel(Users[indpresent].telephone, Users), 1)
+
+        lastname.innerText = "none"
+        firstname.innerText = "none"
+        phone.innerText = "none"
+        email.innerText = "none";
+        solde.innerText = 0;
+        code.innerText = 0;
+        tbody.innerHTML = "";
+        img.src= "";
+        modalSupprimer.style.display = "none";
+        console.log(Users)
+    }
+  
+    else {
+
+        
+        Users.splice(getIndiceBytel(Users[indpresent].telephone, Users), 1)
+        let t = randomNumber(Users.length)
+        indpresent = t;
+        printUser(Users[t])
+        modalSupprimer.style.display = "none";
+        console.log(Users)
+    }
+
 
 })
 
-btncanceldel.addEventListener("click",()=>
-{
-    modalSupprimer.style.display= "none";
+btncanceldel.addEventListener("click", () => {
+    modalSupprimer.style.display = "none";
 })
-faTrash.addEventListener("click",()=>
-{
-    let h4 = document.querySelector("h4")
-    h4.innerText = Users[indpresent].prenom + " " + Users[indpresent].nom
-    console.log(Users)
+faTrash.addEventListener("click", () => {
+
+    if(Users.length == 0)
+    {
+        messError(divError,"Il n'y a plus de client à suprrimer")
+    }
+    else 
+    {
+
+        let h4 = document.querySelector("h4")
+        h4.innerText = Users[indpresent].prenom + " " + Users[indpresent].nom
+        modalSupprimer.style.display = "block";
+        console.log(Users)
+    }
     detailTransacModale.style.display = "none";
-   
-    modaleAjout.style.display = "none";
+     modaleAjout.style.display = "none";
     modaleModifie.style.display = "none";
-    modalSupprimer.style.display= "block";
+   
     console.log(Users[indpresent])
-    
-    
+
+
 
 
 })
 
 
 
-annulerAjout.addEventListener("click",()=>
-{
+annulerAjout.addEventListener("click", () => {
     modaleAjout.style.display = "none";
 
 })
@@ -282,8 +314,11 @@ ajouterNewUser.addEventListener("click", () => {
             photo: photoAjout.value,
             transactions: [],
         })
-        indpresent = Users.length -1
+        indpresent = Users.length - 1
         printUser(Users[Users.length - 1])
+        tbody.innerHTML = "";
+        solde.innerText = 0;
+        code.innerText = 0;
         modaleAjout.style.display = "none";
         console.log(Users)
 
@@ -305,32 +340,15 @@ popup.style.display = "none";
 detailTransacModale.style.display = "none";
 
 
-let deletes = document.querySelectorAll(".fa-square-xmark");
-deletes.forEach(icone => {
-    icone.addEventListener("click", (e) => {
-        let child1 = e.target;
-        let parent1 = child1.parentNode;
-        let parent2 = parent1.parentNode
-        console.log("suppre")
-        let num = parseInt(parent2.children[0].textContent);
-        let transactionFordel = getTransactionByNumero(Users[indpresent].transactions, num);
-        let indic = getIndiceBynumero(Users[indpresent].transactions, num)
-        Users[indpresent].transactions[indic].sens = 0;
-        Users[indpresent].transactions[indic].type = "annulé";
-        Users[indpresent].transactions[indic].day = date;
-        afficheTransac(Users[indpresent].transactions, tbody)
-
-    })
-
-});
+let deletes = document.querySelectorAll(".fa-square-xmark")
 
 ajouterNewUtilisateur.addEventListener("click", () => {
 
     modaleAjout.style.display = "flex";
     detailTransacModale.style.display = "none";
-    modaleModifie.style.display = "none";    
-    modalSupprimer.style.display= "none";
-  
+    modaleModifie.style.display = "none";
+    modalSupprimer.style.display = "none";
+
 })
 
 faXmark.addEventListener("click", () => {
@@ -381,25 +399,36 @@ faEye.addEventListener("click", () => {
 
 
 detailTransac.addEventListener("click", () => {
+    if(Users.length == 0)
+    {
+        messError(divError,"Aucune transaction disponible pour le moment.Veuiller d'abord ajouter un nouveau client")
+    }
+    else {
+
+    
     popup.style.display = "none";
     detailTransacModale.style.display = "block";
-    modalSupprimer.style.display= "none";
+    modalSupprimer.style.display = "none";
     modaleAjout.style.display = "none";
     modaleModifie.style.display = "none";
 
-    //alert("wou")
+ 
     afficheTransactionDetail(Users[indpresent].transactions, document.querySelectorAll("tbody")[1])
+}
 
-    //console.log(recuptransactSwitchData("transfert",Users[indpresent].transactions))
 
 })
 
 
 btnenregistrer.addEventListener("click", () => {
-    date = new Date().toLocaleString();
+    if(Users.length === 0)
+    {
+        messError(divError,"Transaction impossible puisqu'il n'y a pas de client enregistrer")
+    }else {
+    date = new Date();
     popup.style.display = "none";
     detailTransacModale.style.display = "none";
-    modalSupprimer.style.display= "none";
+    modalSupprimer.style.display = "none";
     modaleAjout.style.display = "none";
     detailTransacModale.style.display = "none";
     modaleModifie.style.display = "none";
@@ -411,16 +440,25 @@ btnenregistrer.addEventListener("click", () => {
         messError(divError, "veuiller entrer un montant");
     }
     else if (pricePrinter < 500) {
-        messError(divError, "Le montant saisi doit être supérieur à 500");
 
+        messError(divError, "Le montant saisi doit être supérieur à 500");
     }
     else {
         let operation = trans.value;
         let numTrans = transfertNum.value
         switch (operation) {
             case 'd': if (numTrans === '') {
-                depot(pricePrinter, Users[indpresent], Users[indpresent].transactions[Users[indpresent].transactions.length - 1].numero + 1);
-                printUser(Users[indpresent]);
+                if(Users[indpresent].transactions.length !== 0)
+                {
+
+                    depot(pricePrinter, Users[indpresent], Users[indpresent].transactions[Users[indpresent].transactions.length - 1].numero + 1);
+                    printUser(Users[indpresent]);
+                }
+                else 
+                {
+                    depot(pricePrinter, Users[indpresent],0);
+                    printUser(Users[indpresent]);
+                }
 
             }
             else {
@@ -456,8 +494,18 @@ btnenregistrer.addEventListener("click", () => {
                             Users[indpresent].transactions[Users[indpresent].transactions.length - 1].day = date;
 
                             printUser(Users[indpresent]);
-                            depot(pricePrinter, Users[indice], Users[indice].transactions[Users[indice].transactions.length - 1].numero + 1);
+                            if(Users[indice].transactions.length === 0)
+                            {
+                                
+                                depot(pricePrinter, Users[indice], 0);
 
+                            }
+                            else 
+                            {
+
+                                depot(pricePrinter, Users[indice], Users[indice].transactions[Users[indice].transactions.length - 1].numero + 1);
+                            }
+                            messError(divError,"tranfert effectué. Il ne pourra plus  être annulé dans 5s  ")
                             //console.log(Users[indpresent].transactions)
 
 
@@ -495,20 +543,30 @@ btnenregistrer.addEventListener("click", () => {
 
 
     console.log(deletes)
+}
 
 })
 
 next.addEventListener("click", () => {
-    indpresent = randomNumber(Users.length);
-    printUser(Users[indpresent]);
-    popup.style.display = "none";
-    detailTransacModale.style.display = "none";
-    modalSupprimer.style.display= "none";
-    modaleAjout.style.display = "none";
-    modaleModifie.style.display = "none";
+    if(Users.length === 0)
+    {
+        messError(divError,"Il n'y a plus d'utilisateur enregistrer")
+    }
+    else 
+    {
 
- 
-    
+        indpresent = randomNumber(Users.length);
+        printUser(Users[indpresent]);
+        popup.style.display = "none";
+        detailTransacModale.style.display = "none";
+        modalSupprimer.style.display = "none";
+        modaleAjout.style.display = "none";
+        modaleModifie.style.display = "none";
+        console.log(Users[indpresent])
+    }
+
+
+
 
 
 })
@@ -533,10 +591,14 @@ printUser(Users[indpresent])
 
 
 function afficheTransac(tab, div) {
-    date = new Date().toLocaleString();
+    beneaffaire = null;
+    date = new Date();
     let i = 0;
     div.innerHTML = "";
+    if(tab.length !==0){
     tab.forEach(transac => {
+        // let temps = new Date().toLocaleString().getTime();
+        // let dayyy =  transac.day.getTime();
         let tr = document.createElement("tr");
 
 
@@ -545,14 +607,14 @@ function afficheTransac(tab, div) {
         let td3 = document.createElement("td");
         let td4 = document.createElement("td");
         td1.textContent = transac.numero;
-        td2.textContent = transac.day;
+        td2.textContent = transac.day.toLocaleString();
         if (transac.sens === 1) {
             td3.style.color = "green";
         }
         else if (transac.sens === -1) {
-             
-                td3.style.color = "red";
-                        
+
+            td3.style.color = "red";
+
             // getIndiceBytel(numTrans,Users)
         }
         else {
@@ -562,21 +624,33 @@ function afficheTransac(tab, div) {
         }
         td3.textContent = transac.type;
         if (transac.type === "transfert") {
+
             let ico = document.createElement("i");
             ico.setAttribute("class", "fa-solid fa-square-xmark");
             td3.appendChild(ico);
            
+            if(!(intervalletempsValide(date,transac.day,5000)))
+            {
+                ico.style.display = "none";
+            }
+            setTimeout(() => {
+                ico.style.display = "none";
+
+            }, 5000);
+
+
+            //})
             ico.addEventListener("click", (e) => {
-              
+
                 let child1 = e.target;
                 let parent1 = child1.parentNode;
-                let parent2 = parent1.parentNode
-               
+                let parent2 = parent1.parentNode;
+
                 let num = parseInt(parent2.children[0].textContent);
                 let transactionFordel = getTransactionByNumero(Users[indpresent].transactions, num);
                 let numRetir = transactionFordel.vers
-                console.log(getIndiceBytel(numRetir, Users));
-                console.log(transactionFordel.vers);
+                // console.log(getIndiceBytel(numRetir, Users));
+                // console.log(transactionFordel.vers);
                 if (calculeSolde(Users[getIndiceBytel(numRetir, Users)].transactions) < transactionFordel.montant) {
                     messError(divError, "L'argent ou une partie de l'argent a été retiré. Vous ne pouvez plus annuler la transaction");
                 }
@@ -596,8 +670,12 @@ function afficheTransac(tab, div) {
                 // console.log(transactionFordel)
             })
             td3.style.display = "flex";
+            td3.style.justifyContent = "space-between";
 
-            td3.style.gap = "1em"
+
+            td3.style.gap = "1em";
+           
+
 
         }
         td4.textContent = transac.montant;
@@ -617,11 +695,11 @@ function afficheTransac(tab, div) {
 
         // } else {
 
-            solde.textContent = calculeSolde(tab);
-            code.textContent = tab.length
-       // }
+        solde.textContent = calculeSolde(tab);
+        code.textContent = tab.length
+        // }
     });
-
+    }
 }
 
 
@@ -633,9 +711,6 @@ function afficheTransactionDetail(transactions, div) {
 
             let child1 = e.target;
             console.log(child1.children[0].textContent)
-            // let parent1 = child1.parentNode;
-            // let parent2 = parent1.parentNode;
-            // console.log(child1)
             let popPrenom = document.querySelector(".popPrenom")
             let popNom = document.querySelector(".popNom")
             let popTelephone = document.querySelector(".popTelephone").innerText = Users[indpresent].telephone
@@ -676,7 +751,7 @@ function afficheTransactionDetail(transactions, div) {
         let td2 = document.createElement("td");
         let td3 = document.createElement("td");
         let td4 = document.createElement("td");
-        td1.textContent = transa.day;
+        td1.textContent = transa.day.toLocaleString();
         td2.textContent = transa.montant;
         td3.textContent = transa.type
         td4.textContent = transa.vers;
@@ -722,7 +797,10 @@ function RechercheUser(motCherche) {
                 li.style.display = "none";
                 printUser(client);
                 indpresent = Users.indexOf(client);
-               
+                modalSupprimer.style.display = "none";
+                modaleAjout.style.display = "none";
+                modaleModifie.style.display = "none";
+
             })
         }
     }
@@ -748,8 +826,8 @@ function printUser(user) {
 
 function calculeSolde(tab) {
     let solde = 0;
-    for (const transac of tab) {
-        solde += transac.montant * transac.sens;
+    for (let i = 0; i < tab.length; i++) {
+        solde += tab[i].montant * tab[i].sens;
 
 
     }
@@ -762,7 +840,7 @@ function randomNumber(max) {
 }
 
 function depot(mnt, user, i) {
-    date = new Date().toLocaleString();
+    date = new Date();
 
     let objet = {
         numero: i,
@@ -777,7 +855,7 @@ function depot(mnt, user, i) {
 }
 
 function retrait(mnt, user, i) {
-    date = new Date().toLocaleString();
+    date = new Date();
     let objet = {
         numero: i,
         montant: mnt,
@@ -798,7 +876,7 @@ function controleRetrait(montant, user) {
 }
 
 function transfert(montant, userDepart, userArrivé) {
-    date = new Date().toLocaleString();
+    date = new Date();
     if (!(controleRetrait(montant, userDepart))) {
         messError(divError, "Votre solde ne vous permet pas de faire un tel transfert.")
 
@@ -999,3 +1077,33 @@ function numIsInclude(motCherche) {
 }
 // console.log(numIsInclude("771234567"));
 
+
+
+
+// console.log(dat.getTime()+86400000);
+
+function nextDate(dat) {
+    var nextDay = new Date(dat);
+    nextDay.setDate(nextDay.getDate() + 1);
+    return nextDay;
+}
+// console.log(nextDate(dat));
+
+
+//Fonction pour donner la difference en milliseconde entre deux dates . 
+// la methode getTime() donne le nombre de milliseconde entre le 1er janvier 1970 et la date donnée.
+function differenceDate(date1, date2) {
+    let date1convert = date1.getTime();
+    let date2convert = date2.getTime();
+    return date1convert - date2convert
+
+}
+
+
+
+// Fonction qui permet de savoir si la date date2 + durée depasse date1. elle a été créee pour savoir si un transfert d'argent peut etre annulé apres un durée donné.
+function intervalletempsValide(date1, date2, duree) {
+    let difference = differenceDate(date1, date2);
+    return difference <= duree;
+
+}
